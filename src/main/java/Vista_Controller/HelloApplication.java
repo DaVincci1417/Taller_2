@@ -1,4 +1,4 @@
-package com.example.taller_2;
+package Vista_Controller;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
