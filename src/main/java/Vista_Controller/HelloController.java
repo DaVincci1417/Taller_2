@@ -72,6 +72,113 @@ public class HelloController implements Initializable{
         return ingEspeciales;
     }
 
+    //Agregar Clientes
+    @FXML
+    public void agregarCliente(){
+        if(txtNombre.getText().isEmpty() || txtRut.getText().isEmpty() ||
+                txtDireccion.getText().isEmpty() || txtCorreo.getText().isEmpty()
+                || txtTelefono.getText().isEmpty()){
+            mensajeErrorBotonAgregarCafe();
+        }else{
+
+        }
+    }
+    private void mensajeConfirmacionAgregarClientes(){
+        Alert mensaje = new Alert(Alert.AlertType.NONE);
+        mensaje.setTitle("Agregar Cafe");
+        mensaje.setHeaderText("Registro exitoso");
+        mensaje.setContentText("Cafe agregado correctamente");
+        ButtonType botonOk = new ButtonType("Ok");
+        mensaje.getButtonTypes().setAll(botonOk);
+        mensaje.show();
+    }
+    private void mensajeErrorBotonAgregarCafe() {
+        if (txtGrCafe.getText().isEmpty() || txtMlAgua.getText().isEmpty() ||
+                comboTamaño.getSelectionModel().isEmpty() || comboOpcionales.getSelectionModel().isEmpty()) {
+            Alert mensaje = new Alert(Alert.AlertType.ERROR);
+            mensaje.setTitle("Agregar Cafe");
+            mensaje.setHeaderText("Error");
+            mensaje.setContentText("No puede dejar campos vacios");
+            ButtonType botonOk = new ButtonType("Ok");
+            mensaje.getButtonTypes().setAll(botonOk);
+            mensaje.show();
+        }
+    }
+
+    //Agregar Vehiculo
+    @FXML
+    public void agregarVehiculo(){
+        if(txtMarca.getText().isEmpty() || txtModelo.getText().isEmpty() ||
+                txtKilometros.getText().isEmpty() || txtPrecio.getText().isEmpty()
+                || comboBoxAño.getSelectionModel().isEmpty() || comboBoxColor.getSelectionModel().isEmpty()){
+            mensajeErrorBotonAgregarVehiculo();
+        }else{
+            automotora.agregarVehiculo(new Vehiculo(
+                    txtMarca.getText(), txtModelo.getText(), comboBoxAño.getSelectionModel().getSelectedItem(),
+                    comboBoxColor.getSelectionModel().getSelectedItem(), txtKilometros.getText(), txtPrecio.getText()));
+            mensajeConfirmacionAgregarVehiculo();
+        }
+    }
+    private void mensajeConfirmacionAgregarVehiculo(){
+        Alert mensaje = new Alert(Alert.AlertType.NONE);
+        mensaje.setTitle("Agregar Vehiculo");
+        mensaje.setHeaderText("Registro exitoso");
+        mensaje.setContentText("Vehiculo agregado correctamente");
+        ButtonType botonOk = new ButtonType("Ok");
+        mensaje.getButtonTypes().setAll(botonOk);
+        mensaje.show();
+    }
+    private void mensajeErrorBotonAgregarVehiculo(){
+        if(txtMarca.getText().isEmpty() || txtModelo.getText().isEmpty() ||
+                txtKilometros.getText().isEmpty() || txtPrecio.getText().isEmpty()
+                || comboBoxAño.getSelectionModel().isEmpty() || comboBoxColor.getSelectionModel().isEmpty()){
+            Alert mensaje = new Alert(Alert.AlertType.ERROR);
+            mensaje.setTitle("Agregar Vehiculo");
+            mensaje.setHeaderText("Error");
+            mensaje.setContentText("No puede dejar campos vacios");
+            ButtonType botonOk = new ButtonType("Ok");
+            mensaje.getButtonTypes().setAll(botonOk);
+            mensaje.show();
+        }
+    }
+
+
+    //Buscar Vehiculo
+    @FXML
+    public void buscarVehiculo(ActionEvent event) {
+        if (txtModeloBuscar.getText().isEmpty() || comboBoxMarca.getSelectionModel().isEmpty()) {
+            mensajeBotonBuscarVehiculo();
+        } else {
+            if (automotora.buscarVehiculos(comboBoxMarca.getSelectionModel().getSelectedItem(), txtModeloBuscar.getText()).size() == 0) {
+                mensajeBotonBuscarVehiculo();
+            } else {
+                panelBuscar.setVisible(false);
+                panelTabla.setVisible(true);
+                vehiculosEncontrados.addAll(automotora.buscarVehiculos(comboBoxMarca.getSelectionModel().getSelectedItem(), txtModeloBuscar.getText()));
+            }
+        }
+    }
+    private void mensajeBotonBuscarVehiculo(){
+        if(txtModeloBuscar.getText().isEmpty() || comboBoxMarca.getSelectionModel().isEmpty()){
+            Alert mensaje = new Alert(Alert.AlertType.ERROR);
+            mensaje.setTitle("Buscar Vehiculo");
+            mensaje.setHeaderText("Error");
+            mensaje.setContentText("No puede dejar campos vacios");
+            ButtonType botonOk = new ButtonType("Ok");
+            mensaje.getButtonTypes().setAll(botonOk);
+            mensaje.show();
+        }
+        if(automotora.buscarVehiculos(comboBoxMarca.getSelectionModel().getSelectedItem(), txtModeloBuscar.getText()).size() == 0){
+            Alert mensaje = new Alert(Alert.AlertType.INFORMATION);
+            mensaje.setTitle("Buscar Vehiculo");
+            mensaje.setHeaderText("Error");
+            mensaje.setContentText("No se ha encontrado vehiculos");
+            ButtonType botonOk = new ButtonType("Ok");
+            mensaje.getButtonTypes().setAll(botonOk);
+            mensaje.show();
+        }
+    }
+
     //Metodos que permitiran moverse por el software
     @FXML
     public void ingresarAgregarCafe(){
@@ -81,7 +188,7 @@ public class HelloController implements Initializable{
     }
     @FXML
     public void ingresarBuscarCafes(){
-        if(automotora.getVehiculos().size() == 0){
+        if(cafeteria.getCafes().size() == 0){
             mensajeErrorBotonBuscar();
         }else{
             panelPrincipal.setVisible(false);
@@ -90,11 +197,11 @@ public class HelloController implements Initializable{
         }
     }
     private void mensajeErrorBotonBuscar(){
-        if(automotora.getVehiculos().size() == 0){
+        if(cafeteria.getCafes().size() == 0){
             Alert mensaje = new Alert(Alert.AlertType.ERROR);
-            mensaje.setTitle("Buscar Vehiculos");
+            mensaje.setTitle("Buscar Cafes");
             mensaje.setHeaderText("Error");
-            mensaje.setContentText("No hay vehiculos en la Automotora");
+            mensaje.setContentText("Aun no hay cafes en la Cafeteria");
             ButtonType botonOk = new ButtonType("Ok");
             mensaje.getButtonTypes().setAll(botonOk);
             mensaje.show();
@@ -113,60 +220,57 @@ public class HelloController implements Initializable{
         panelModificar.setVisible(true);
     }
 
-
     @FXML
     public void volverPrincipal(){
-        panelCliente.setVisible(false);
-        panelAuto.setVisible(false);
+        panelAgregar.setVisible(false);
         panelBuscar.setVisible(false);
-        panelTabla.setVisible(false);
+        panelResultado.setVisible(false);
+        panelEliminar.setVisible(false);
+        panelModificar.setVisible(false);
 
         panelPrincipal.setVisible(true);
     }
     @FXML
     public void volverBuscar(){
-        panelPrincipal.setVisible(false);
-        panelCliente.setVisible(false);
-        panelAuto.setVisible(false);
-        panelTabla.setVisible(false);
+        panelAgregar.setVisible(false);
+        panelBuscar.setVisible(false);
+        panelResultado.setVisible(false);
+        panelEliminar.setVisible(false);
+        panelModificar.setVisible(false);
 
-        panelBuscar.setVisible(true);
-        for(int i = 0; i < vehiculosEncontrados.size(); i++){
-            vehiculosEncontrados.remove(i);
+        panelPrincipal.setVisible(true);
+        for(int i = 0; i < cafesEncontrados.size(); i++){
+            cafesEncontrados.remove(i);
         }
-        listaAutos.setItems(vehiculosEncontrados);
+        listaCafes.setItems(cafesEncontrados);
     }
 
 
     //Metodos para limpiar las casiilas de las respectivas pestañas
     @FXML
     public void limpiarAgregarCafe(){
-        txtNombre.setText(null);
-        txtRut.setText(null);
-        txtDireccion.setText(null);
-        txtCorreo.setText(null);
-        txtTelefono.setText(null);
+        txtGrCafe.setText(null);
+        txtMlAgua.setText(null);
+        comboTamaño.getSelectionModel().select(null);
+        comboOpcionales.getSelectionModel().select(null);
     }
     @FXML
     public void limpiarBuscarCafe(){
-        txtMarca.setText(null);
-        txtModelo.setText(null);
-        txtKilometros.setText(null);
-        txtPrecio.setText(null);
-        comboBoxAño.getSelectionModel().select(null);
-        comboBoxColor.getSelectionModel().select(null);
+        comboTamañoBusca.getSelectionModel().select(null);
     }
     @FXML
     public void limpiarEliminarCafe(){
-        txtNombre.setText(null);
-        txtRut.setText(null);
-        txtDireccion.setText(null);
-        txtCorreo.setText(null);
-        txtTelefono.setText(null);
+        txtGrCafeEliminar.setText(null);
+        txtMlAguaEliminar.setText(null);
+        comboTamañoEliminar.getSelectionModel().select(null);
+        comboOpcionalesEliminar.getSelectionModel().select(null);
     }
     @FXML
     public void limiparModificarDatosCafeteria(){
-        txtModeloBuscar.setText(null);
-        comboBoxMarca.getSelectionModel().select(null);
+        txtNombre.setText(null);
+        txtDireccion.setText(null);
+        radioFacebook.setSelected(false);
+        radioTwitter.setSelected(false);
+        radioInstagram.setSelected(false);
     }
 }

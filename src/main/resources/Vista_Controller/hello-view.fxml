@@ -13,7 +13,7 @@
    <children>
       <AnchorPane fx:id="panelPrincipal" prefHeight="400.0" prefWidth="400.0">
          <children>
-            <Button layoutX="35.0" layoutY="257.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="331.0" text="Eliminar Café" AnchorPane.bottomAnchor="103.0" />
+            <Button layoutX="35.0" layoutY="257.0" mnemonicParsing="false" onAction="#ingresarEliminarCafe" prefHeight="40.0" prefWidth="331.0" text="Eliminar Café" AnchorPane.bottomAnchor="103.0" />
             <Label layoutX="112.0" layoutY="14.0" prefHeight="53.0" prefWidth="177.0" text="Bienvenido">
                <font>
                   <Font size="36.0" />
@@ -24,9 +24,9 @@
                   <Font size="24.0" />
                </font>
             </Label>
-            <Button layoutX="35.0" layoutY="191.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="331.0" text="¿Que cafes vendemos?" />
-            <Button layoutX="35.0" layoutY="125.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="331.0" text="Agregar Café" />
-            <Button layoutX="35.0" layoutY="323.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="331.0" text="Modificar información cafetería" />
+            <Button layoutX="35.0" layoutY="191.0" mnemonicParsing="false" onAction="#ingresarBuscarCafes" prefHeight="40.0" prefWidth="331.0" text="¿Que cafes vendemos?" />
+            <Button layoutX="35.0" layoutY="125.0" mnemonicParsing="false" onAction="#ingresarAgregarCafe" prefHeight="40.0" prefWidth="331.0" text="Agregar Café" />
+            <Button layoutX="35.0" layoutY="323.0" mnemonicParsing="false" onAction="#ingresarModificarCafeteria" prefHeight="40.0" prefWidth="331.0" text="Modificar información cafetería" />
          </children>
       </AnchorPane>
       <AnchorPane fx:id="panelAgregar" prefHeight="400.0" prefWidth="400.0" visible="false">
@@ -59,8 +59,8 @@
             <TextField fx:id="txtGrCafe" layoutX="219.0" layoutY="61.0" prefHeight="25.0" prefWidth="156.0" AnchorPane.rightAnchor="25.0" />
             <TextField fx:id="txtMlAgua" layoutX="230.0" layoutY="101.0" prefHeight="25.0" prefWidth="156.0" AnchorPane.rightAnchor="25.0" />
             <Button layoutX="32.0" layoutY="285.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="98.0" text="Registrar" AnchorPane.leftAnchor="30.0" />
-            <Button layoutX="151.0" layoutY="285.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="98.0" text="Limpiar" />
-            <Button layoutX="270.0" layoutY="285.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="98.0" text="Volver" AnchorPane.rightAnchor="30.0" />
+            <Button layoutX="151.0" layoutY="285.0" mnemonicParsing="false" onAction="#limpiarAgregarCafe" prefHeight="40.0" prefWidth="98.0" text="Limpiar" />
+            <Button layoutX="270.0" layoutY="285.0" mnemonicParsing="false" onAction="#volverPrincipal" prefHeight="40.0" prefWidth="98.0" text="Volver" AnchorPane.rightAnchor="30.0" />
             <ComboBox fx:id="comboTamaño" layoutX="219.0" layoutY="140.0" prefHeight="26.0" prefWidth="156.0" promptText="Tamaño" />
             <ComboBox fx:id="comboOpcionales" layoutX="219.0" layoutY="180.0" prefHeight="26.0" prefWidth="156.0" promptText="Ingr. Opcionales" />
          </children>
@@ -79,14 +79,14 @@
             </Label>
             <TextField fx:id="txtMarca" layoutX="219.0" layoutY="61.0" prefHeight="25.0" prefWidth="156.0" AnchorPane.rightAnchor="25.0" />
             <Button layoutX="25.0" layoutY="285.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="98.0" text="Registrar" AnchorPane.leftAnchor="25.0" />
-            <Button layoutX="151.0" layoutY="285.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="98.0" text="Limpiar" />
-            <Button layoutX="277.0" layoutY="285.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="98.0" text="Volver" AnchorPane.rightAnchor="25.0" />
+            <Button layoutX="151.0" layoutY="285.0" mnemonicParsing="false" onAction="#limpiarBuscarCafe" prefHeight="40.0" prefWidth="98.0" text="Limpiar" />
+            <Button layoutX="277.0" layoutY="285.0" mnemonicParsing="false" onAction="#volverPrincipal" prefHeight="40.0" prefWidth="98.0" text="Volver" AnchorPane.rightAnchor="25.0" />
             <ComboBox fx:id="comboTamañoBusca" layoutX="219.0" layoutY="61.0" prefHeight="25.0" prefWidth="156.0" promptText="Tamaño Cafe" />
          </children>
       </AnchorPane>
       <AnchorPane fx:id="panelResultado" prefHeight="400.0" prefWidth="400.0" visible="false">
          <children>
-            <Button fx:id="volverTabla" layoutX="302.0" layoutY="353.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" text="Volver" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="300.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="360.0" />
+            <Button fx:id="volverTabla" layoutX="302.0" layoutY="353.0" mnemonicParsing="false" onAction="#volverBuscar" prefHeight="40.0" prefWidth="100.0" text="Volver" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="300.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="360.0" />
             <ListView fx:id="listaCafes" prefHeight="360.0" prefWidth="400.0" />
          </children>
       </AnchorPane>
@@ -120,8 +120,8 @@
             <TextField fx:id="txtGrCafeEliminar" layoutX="219.0" layoutY="61.0" prefHeight="25.0" prefWidth="156.0" AnchorPane.rightAnchor="25.0" />
             <TextField fx:id="txtMlAguaEliminar" layoutX="230.0" layoutY="101.0" prefHeight="25.0" prefWidth="156.0" AnchorPane.rightAnchor="25.0" />
             <Button layoutX="32.0" layoutY="285.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="98.0" text="Eliminar" AnchorPane.leftAnchor="30.0" />
-            <Button layoutX="151.0" layoutY="285.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="98.0" text="Limpiar" />
-            <Button layoutX="270.0" layoutY="285.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="98.0" text="Volver" AnchorPane.rightAnchor="30.0" />
+            <Button layoutX="151.0" layoutY="285.0" mnemonicParsing="false" onAction="#limpiarEliminarCafe" prefHeight="40.0" prefWidth="98.0" text="Limpiar" />
+            <Button layoutX="270.0" layoutY="285.0" mnemonicParsing="false" onAction="#volverPrincipal" prefHeight="40.0" prefWidth="98.0" text="Volver" AnchorPane.rightAnchor="30.0" />
             <ComboBox fx:id="comboTamañoEliminar" layoutX="219.0" layoutY="140.0" prefHeight="26.0" prefWidth="156.0" promptText="Tamaño" />
             <ComboBox fx:id="comboOpcionalesEliminar" layoutX="219.0" layoutY="180.0" prefHeight="26.0" prefWidth="156.0" promptText="Ingr. Opcionales" />
          </children>
@@ -151,8 +151,8 @@
             <TextField fx:id="txtNombre" layoutX="219.0" layoutY="61.0" prefHeight="25.0" prefWidth="156.0" AnchorPane.rightAnchor="25.0" />
             <TextField fx:id="txtDireccion" layoutX="230.0" layoutY="101.0" prefHeight="25.0" prefWidth="156.0" AnchorPane.rightAnchor="25.0" />
             <Button layoutX="32.0" layoutY="285.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="98.0" text="Registrar" AnchorPane.leftAnchor="30.0" />
-            <Button layoutX="151.0" layoutY="285.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="98.0" text="Limpiar" />
-            <Button layoutX="270.0" layoutY="285.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="98.0" text="Volver" AnchorPane.rightAnchor="30.0" />
+            <Button layoutX="151.0" layoutY="285.0" mnemonicParsing="false" onAction="#limiparModificarDatosCafeteria" prefHeight="40.0" prefWidth="98.0" text="Limpiar" />
+            <Button layoutX="270.0" layoutY="285.0" mnemonicParsing="false" onAction="#volverPrincipal" prefHeight="40.0" prefWidth="98.0" text="Volver" AnchorPane.rightAnchor="30.0" />
             <RadioButton fx:id="radioFacebook" layoutX="30.0" layoutY="172.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="98.0" text="Facebook" />
             <RadioButton fx:id="radioInstagram" layoutX="271.0" layoutY="172.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="98.0" text="Instagram" />
             <RadioButton fx:id="radioTwitter" layoutX="151.0" layoutY="172.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="98.0" text="Twitter" />
