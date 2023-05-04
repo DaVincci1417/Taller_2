@@ -1,5 +1,6 @@
 package Vista_Controller;
 
+import GestionArchivos.GestionDatos;
 import Model.Cafe;
 import Model.Cafeteria;
 import javafx.collections.FXCollections;
@@ -41,11 +42,14 @@ public class HelloController implements Initializable{
     @FXML
     RadioButton radioFacebook, radioTwitter, radioInstagram;
 
+    GestionDatos gd = new GestionDatos();
     Cafeteria cafeteria = new Cafeteria();
     ObservableList<Cafe> cafesEncontrados;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        gd.agregarCafeteria(cafeteria);
+
         comboTamaño.setItems(agregarTamañosComboBox());
         comboTamañoEliminar.setItems(agregarTamañosComboBox());
         comboTamañoBusca.setItems(agregarTamañosComboBox());
@@ -72,18 +76,19 @@ public class HelloController implements Initializable{
         return ingEspeciales;
     }
 
-    //Agregar Clientes
+    //Agregar Cafe
     @FXML
-    public void agregarCliente(){
-        if(txtNombre.getText().isEmpty() || txtRut.getText().isEmpty() ||
-                txtDireccion.getText().isEmpty() || txtCorreo.getText().isEmpty()
-                || txtTelefono.getText().isEmpty()){
+    public void agregarCafe(){
+        if(txtGrCafe.getText().isEmpty() || txtMlAgua.getText().isEmpty() ||
+                comboTamaño.getSelectionModel().isEmpty() || comboOpcionales.getSelectionModel().isEmpty()){
             mensajeErrorBotonAgregarCafe();
         }else{
-
+            cafeteria.agregarCafe(new Cafe(txtGrCafe.getText(), txtMlAgua.getText(),
+                    comboTamaño.getSelectionModel().getSelectedItem(), comboOpcionales.getSelectionModel().getSelectedItem()));
+            mensajeConfirmacionAgregarCafe();
         }
     }
-    private void mensajeConfirmacionAgregarClientes(){
+    private void mensajeConfirmacionAgregarCafe(){
         Alert mensaje = new Alert(Alert.AlertType.NONE);
         mensaje.setTitle("Agregar Cafe");
         mensaje.setHeaderText("Registro exitoso");
@@ -105,35 +110,32 @@ public class HelloController implements Initializable{
         }
     }
 
-    //Agregar Vehiculo
+    //Eliminar Cafe
     @FXML
-    public void agregarVehiculo(){
-        if(txtMarca.getText().isEmpty() || txtModelo.getText().isEmpty() ||
-                txtKilometros.getText().isEmpty() || txtPrecio.getText().isEmpty()
-                || comboBoxAño.getSelectionModel().isEmpty() || comboBoxColor.getSelectionModel().isEmpty()){
-            mensajeErrorBotonAgregarVehiculo();
+    public void eliminarCafe(){
+        if(txtGrCafeEliminar.getText().isEmpty() || txtMlAguaEliminar.getText().isEmpty() ||
+                comboTamañoEliminar.getSelectionModel().isEmpty() || comboOpcionalesEliminar.getSelectionModel().isEmpty()){
+            mensajeErrorBotonElimnarCafe();
         }else{
-            automotora.agregarVehiculo(new Vehiculo(
-                    txtMarca.getText(), txtModelo.getText(), comboBoxAño.getSelectionModel().getSelectedItem(),
-                    comboBoxColor.getSelectionModel().getSelectedItem(), txtKilometros.getText(), txtPrecio.getText()));
-            mensajeConfirmacionAgregarVehiculo();
+            cafeteria.eliminarCafe(new Cafe(txtGrCafeEliminar.getText(), txtMlAguaEliminar.getText(),
+                    comboTamañoEliminar.getSelectionModel().getSelectedItem(), comboOpcionalesEliminar.getSelectionModel().getSelectedItem()));
+            mensajeConfirmacionEliminarCafe();
         }
     }
-    private void mensajeConfirmacionAgregarVehiculo(){
+    private void mensajeConfirmacionEliminarCafe(){
         Alert mensaje = new Alert(Alert.AlertType.NONE);
-        mensaje.setTitle("Agregar Vehiculo");
-        mensaje.setHeaderText("Registro exitoso");
-        mensaje.setContentText("Vehiculo agregado correctamente");
+        mensaje.setTitle("Eliminar Cafe");
+        mensaje.setHeaderText("Accion concretada");
+        mensaje.setContentText("Cafe eliminado correctamente");
         ButtonType botonOk = new ButtonType("Ok");
         mensaje.getButtonTypes().setAll(botonOk);
         mensaje.show();
     }
-    private void mensajeErrorBotonAgregarVehiculo(){
-        if(txtMarca.getText().isEmpty() || txtModelo.getText().isEmpty() ||
-                txtKilometros.getText().isEmpty() || txtPrecio.getText().isEmpty()
-                || comboBoxAño.getSelectionModel().isEmpty() || comboBoxColor.getSelectionModel().isEmpty()){
+    private void mensajeErrorBotonElimnarCafe(){
+        if (txtGrCafeEliminar.getText().isEmpty() || txtMlAguaEliminar.getText().isEmpty() ||
+                comboTamañoEliminar.getSelectionModel().isEmpty() || comboOpcionalesEliminar.getSelectionModel().isEmpty()) {
             Alert mensaje = new Alert(Alert.AlertType.ERROR);
-            mensaje.setTitle("Agregar Vehiculo");
+            mensaje.setTitle("Eliminar Cafe");
             mensaje.setHeaderText("Error");
             mensaje.setContentText("No puede dejar campos vacios");
             ButtonType botonOk = new ButtonType("Ok");
@@ -143,36 +145,36 @@ public class HelloController implements Initializable{
     }
 
 
-    //Buscar Vehiculo
+    //Buscar Cafe
     @FXML
-    public void buscarVehiculo(ActionEvent event) {
-        if (txtModeloBuscar.getText().isEmpty() || comboBoxMarca.getSelectionModel().isEmpty()) {
+    public void buscarCafe() {
+        if (comboTamañoBusca.getSelectionModel().isEmpty()) {
             mensajeBotonBuscarVehiculo();
         } else {
-            if (automotora.buscarVehiculos(comboBoxMarca.getSelectionModel().getSelectedItem(), txtModeloBuscar.getText()).size() == 0) {
+            if (cafeteria.buscarCafe(comboTamañoBusca.getSelectionModel().getSelectedItem()).size() == 0) {
                 mensajeBotonBuscarVehiculo();
             } else {
                 panelBuscar.setVisible(false);
-                panelTabla.setVisible(true);
-                vehiculosEncontrados.addAll(automotora.buscarVehiculos(comboBoxMarca.getSelectionModel().getSelectedItem(), txtModeloBuscar.getText()));
+                panelResultado.setVisible(true);
+                cafesEncontrados.addAll(cafeteria.buscarCafe(comboTamañoBusca.getSelectionModel().getSelectedItem()));
             }
         }
     }
     private void mensajeBotonBuscarVehiculo(){
-        if(txtModeloBuscar.getText().isEmpty() || comboBoxMarca.getSelectionModel().isEmpty()){
+        if(comboTamañoBusca.getSelectionModel().isEmpty()){
             Alert mensaje = new Alert(Alert.AlertType.ERROR);
-            mensaje.setTitle("Buscar Vehiculo");
+            mensaje.setTitle("Buscar Cafes");
             mensaje.setHeaderText("Error");
             mensaje.setContentText("No puede dejar campos vacios");
             ButtonType botonOk = new ButtonType("Ok");
             mensaje.getButtonTypes().setAll(botonOk);
             mensaje.show();
         }
-        if(automotora.buscarVehiculos(comboBoxMarca.getSelectionModel().getSelectedItem(), txtModeloBuscar.getText()).size() == 0){
+        if(cafeteria.buscarCafe(comboTamañoBusca.getSelectionModel().getSelectedItem()).size() == 0){
             Alert mensaje = new Alert(Alert.AlertType.INFORMATION);
-            mensaje.setTitle("Buscar Vehiculo");
+            mensaje.setTitle("Buscar Cafes");
             mensaje.setHeaderText("Error");
-            mensaje.setContentText("No se ha encontrado vehiculos");
+            mensaje.setContentText("No se ha encontrado cafes");
             ButtonType botonOk = new ButtonType("Ok");
             mensaje.getButtonTypes().setAll(botonOk);
             mensaje.show();

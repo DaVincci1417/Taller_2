@@ -58,7 +58,7 @@
             </Label>
             <TextField fx:id="txtGrCafe" layoutX="219.0" layoutY="61.0" prefHeight="25.0" prefWidth="156.0" AnchorPane.rightAnchor="25.0" />
             <TextField fx:id="txtMlAgua" layoutX="230.0" layoutY="101.0" prefHeight="25.0" prefWidth="156.0" AnchorPane.rightAnchor="25.0" />
-            <Button layoutX="32.0" layoutY="285.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="98.0" text="Registrar" AnchorPane.leftAnchor="30.0" />
+            <Button layoutX="32.0" layoutY="285.0" mnemonicParsing="false" onAction="#agregarCafe" prefHeight="40.0" prefWidth="98.0" text="Registrar" AnchorPane.leftAnchor="30.0" />
             <Button layoutX="151.0" layoutY="285.0" mnemonicParsing="false" onAction="#limpiarAgregarCafe" prefHeight="40.0" prefWidth="98.0" text="Limpiar" />
             <Button layoutX="270.0" layoutY="285.0" mnemonicParsing="false" onAction="#volverPrincipal" prefHeight="40.0" prefWidth="98.0" text="Volver" AnchorPane.rightAnchor="30.0" />
             <ComboBox fx:id="comboTamaño" layoutX="219.0" layoutY="140.0" prefHeight="26.0" prefWidth="156.0" promptText="Tamaño" />
@@ -78,7 +78,7 @@
                </font>
             </Label>
             <TextField fx:id="txtMarca" layoutX="219.0" layoutY="61.0" prefHeight="25.0" prefWidth="156.0" AnchorPane.rightAnchor="25.0" />
-            <Button layoutX="25.0" layoutY="285.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="98.0" text="Registrar" AnchorPane.leftAnchor="25.0" />
+            <Button layoutX="25.0" layoutY="285.0" mnemonicParsing="false" onAction="#buscarCafe" prefHeight="40.0" prefWidth="98.0" text="Buscar" AnchorPane.leftAnchor="25.0" />
             <Button layoutX="151.0" layoutY="285.0" mnemonicParsing="false" onAction="#limpiarBuscarCafe" prefHeight="40.0" prefWidth="98.0" text="Limpiar" />
             <Button layoutX="277.0" layoutY="285.0" mnemonicParsing="false" onAction="#volverPrincipal" prefHeight="40.0" prefWidth="98.0" text="Volver" AnchorPane.rightAnchor="25.0" />
             <ComboBox fx:id="comboTamañoBusca" layoutX="219.0" layoutY="61.0" prefHeight="25.0" prefWidth="156.0" promptText="Tamaño Cafe" />
@@ -119,7 +119,7 @@
             </Label>
             <TextField fx:id="txtGrCafeEliminar" layoutX="219.0" layoutY="61.0" prefHeight="25.0" prefWidth="156.0" AnchorPane.rightAnchor="25.0" />
             <TextField fx:id="txtMlAguaEliminar" layoutX="230.0" layoutY="101.0" prefHeight="25.0" prefWidth="156.0" AnchorPane.rightAnchor="25.0" />
-            <Button layoutX="32.0" layoutY="285.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="98.0" text="Eliminar" AnchorPane.leftAnchor="30.0" />
+            <Button layoutX="32.0" layoutY="285.0" mnemonicParsing="false" onAction="#eliminarCafe" prefHeight="40.0" prefWidth="98.0" text="Eliminar" AnchorPane.leftAnchor="30.0" />
             <Button layoutX="151.0" layoutY="285.0" mnemonicParsing="false" onAction="#limpiarEliminarCafe" prefHeight="40.0" prefWidth="98.0" text="Limpiar" />
             <Button layoutX="270.0" layoutY="285.0" mnemonicParsing="false" onAction="#volverPrincipal" prefHeight="40.0" prefWidth="98.0" text="Volver" AnchorPane.rightAnchor="30.0" />
             <ComboBox fx:id="comboTamañoEliminar" layoutX="219.0" layoutY="140.0" prefHeight="26.0" prefWidth="156.0" promptText="Tamaño" />
